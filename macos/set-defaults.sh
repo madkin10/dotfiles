@@ -39,3 +39,18 @@ defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+
+# finder should show hidden files by default
+defaults write com.apple.Finder AppleShowAllFiles true
+
+# set a custom location for screenshots
+screenshot_directory="$HOME/Desktop/screenshots"
+
+if [ ! -d $screenshot_directory ]; then
+	mkdir $screenshot_directory
+fi
+
+defaults write com.apple.screencapture location $screenshot_directory
+
+# add the QUIT option to the finder menu
+defaults write com.apple.finder QuitMenuItem -bool true && killall Finder

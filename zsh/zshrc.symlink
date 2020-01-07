@@ -1,29 +1,26 @@
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
-
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
-
-# Stash your environment variables in ~/.localrc. This means they'll stay out
-# of your main dotfiles repository (which may be public, like this one), but
-# you'll have access to them in your scripts.
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# all of our zsh files
+# shortcut to this dotfiles path is $DOTFILES
+export DOTFILES=$HOME/.dotfiles
+
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/projects
+
+
+##################
+# Load all zsh dotfiles
+##################
+
 typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+config_files=($DOTFILES/**/*.zsh)
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
-
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
   source $file
 done
@@ -38,7 +35,44 @@ do
   source $file
 done
 
+# load every alias file
+for file in ${(M)config_files:#*/aliases.zsh}
+do
+  source $file
+done
+
 unset config_files
+
+##################
+# Local secrets config for things that need to stay out of git
+##################
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+##################
+# Editor config
+##################
+
+# default editor, no options
+export SHORT_EDITOR='rubymine'
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  # use wait flag so CLI tools will behave properly
+  export EDITOR="$SHORT_EDITOR --wait --new-window"
+fi
+
+##################
+# Shell options
+##################
+
+# use arrow keys to navigate between words in iterm
+bindkey "[D" backward-word
+bindkey "[C" forward-word
 
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
@@ -48,3 +82,22 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
+
+##################
+# Integrations
+##################
+
+# iterm2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+##################
+# Oh-my-zsh config
+##################
+export ZSH=$HOME/.oh-my-zsh
+ZSH_CUSTOM=$DOTFILES/zsh
+ZSH_THEME="powerlevel10k/powerlevel10k"
+POWERLEVEL9K_MODE="awesome-patched"
+source $ZSH/oh-my-zsh.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
