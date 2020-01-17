@@ -11,6 +11,14 @@ export DOTFILES=$HOME/.dotfiles
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/projects
 
+##################
+# PATH setup
+##################
+
+export PATH="/usr/local/opt/helm@2/bin:$PATH"
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
 ##################
 # Load all zsh dotfiles
@@ -20,26 +28,17 @@ typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
 
 # load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
+for file in ${(M)config_files:#*/path.zsh}; do source $file; done
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
+for file in ${(M)config_files:#*/completion.zsh}; do source $file; done
 
 # load every alias file
-for file in ${(M)config_files:#*/aliases.zsh}
-do
-  source $file
-done
+for file in ${(M)config_files:#*/aliases.zsh}; do source $file; done
 
 unset config_files
 
@@ -63,17 +62,12 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   # use wait flag so CLI tools will behave properly
-  export EDITOR="$SHORT_EDITOR --wait --new-window"
+  export EDITOR="$SHORT_EDITOR"
 fi
 
 ##################
 # Shell options
 ##################
-
-# use arrow keys to navigate between words in iterm
-bindkey "[D" backward-word
-bindkey "[C" forward-word
-
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
 autoload -U up-line-or-beginning-search
@@ -86,6 +80,9 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 ##################
 # Integrations
 ##################
+
+# zsh completions
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 # iterm2 shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -101,3 +98,15 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+##################
+# Plugins
+##################
+plugins=(
+git
+helm
+ruby
+rails
+postgres
+brew
+)
