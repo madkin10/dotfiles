@@ -27,3 +27,4 @@ alias stop-pg='brew services stop postgresql'
 alias gatling='/usr/local/lib/gatling-charts-highcharts-bundle-3.0.0-RC2/bin/gatling.sh'
 alias myip='ipconfig getifaddr en0'
 alias kboard="kubectl port-forward svc/kubernetes-dashboard -n kube-system 6443:443 & kubectl get secret --namespace kube-system $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}') -o jsonpath="{.data.token}" | base64 --decode | pbcopy  && sleep 2 && open https://127.0.0.1:6443 && fg"
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
