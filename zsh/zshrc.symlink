@@ -70,15 +70,23 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Load oh-my-zsh library.
 antigen use oh-my-zsh
+
 # Load bundles from the default repo (oh-my-zsh).
-antigen bundle git
 antigen bundle command-not-found
 antigen bundle docker
+antigen bundle git
+antigen bundle helm
+antigen bundle postgres
+antigen bundle ruby
+antigen bundle rails
+
 # Load bundles from external repos.
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
+
 # Select theme.
 antigen theme af-magic
+
 # Tell Antigen that you're done.
 antigen apply
