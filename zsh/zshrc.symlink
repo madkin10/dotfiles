@@ -7,15 +7,6 @@ export DOTFILES=$HOME/.dotfiles
 export PROJECTS=$HOME/projects
 
 ##################
-# PATH setup
-##################
-
-export PATH="/usr/local/opt/helm@2/bin:$PATH"
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-
-##################
 # Load all zsh dotfiles
 ##################
 
