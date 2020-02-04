@@ -1,1 +1,1 @@
-curl -L git.io/antigen > ~/antigen.zsh
+brew install antigen
