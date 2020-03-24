@@ -1,0 +1,8 @@
+coreutils
+gpg
+postgres
+rabbitmq
+awscli
+aws-iam-authenticator
+fluxctl
+jq

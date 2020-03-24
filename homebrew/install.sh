@@ -21,4 +21,6 @@ then
 
 fi
 
+brew install $(cat $DOTFILES/homebrew/packages.txt)
+
 exit 0

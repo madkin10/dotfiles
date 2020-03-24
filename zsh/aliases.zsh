@@ -28,6 +28,9 @@ alias gatling='/usr/local/lib/gatling-charts-highcharts-bundle-3.0.0-RC2/bin/gat
 alias myip='ipconfig getifaddr en0'
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 alias dotfiles="cd ~/.dotfiles"
+alias disable-sleep="sudo pmset -a disablesleep 1"
+alias enable-sleep="sudo pmset -a disablesleep 0"
+alias setname="kubectl config set-context --current --namespace="
 
 function kboard(){
   kubectl proxy & kubectl get secret --namespace kube-system $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}') -o jsonpath="{.data.token}" | base64 --decode | pbcopy  && sleep 2 && open 'http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login' && fg
