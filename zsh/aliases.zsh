@@ -37,6 +37,8 @@ alias stop-es='brew services stop elasticsearch'
 #Rabbitmq aliases
 alias start-rabbit='brew services start rabbitmq'
 alias stop-rabbit='brew services stop rabbitmq'
+
+#Postgres aliases
 alias start-pg='brew services start postgresql'
 alias stop-pg='brew services stop postgresql'
 
