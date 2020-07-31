@@ -6,3 +6,5 @@ awscli
 aws-iam-authenticator
 fluxctl
 jq
+helm
+hub

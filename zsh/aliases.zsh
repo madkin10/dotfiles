@@ -54,7 +54,6 @@ function set-namespace(){
 function set-cluster(){
   aws eks update-kubeconfig --profile vhtxdev --name $1-eks-cluster
 }
-
 function kboard(){
   kubectl proxy & kubectl get secret --namespace kube-system $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}') -o jsonpath="{.data.token}" | base64 --decode | pbcopy  && sleep 2 && open 'http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login' && fg
 }
