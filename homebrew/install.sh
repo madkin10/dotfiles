@@ -22,5 +22,6 @@ then
 fi
 
 brew install $(cat $DOTFILES/homebrew/packages.txt)
+brew cask install $(cat $DOTFILES/homebrew/casks.txt)
 
 exit 0

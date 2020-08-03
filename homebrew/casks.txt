@@ -1,0 +1,11 @@
+iterm2
+slack
+insomnia
+spotify
+lastpass
+visual-studio-code
+jetbrains-toolbox
+flycut
+google-chrome
+firefox
+bettertouchtool
