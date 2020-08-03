@@ -9,3 +9,4 @@ flycut
 google-chrome
 firefox
 bettertouchtool
+docker
